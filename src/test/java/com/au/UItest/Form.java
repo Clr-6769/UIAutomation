@@ -1,5 +1,6 @@
 package com.au.UItest;
 
+import com.au.Models.FormClass;
 import org.junit.Assert;
 
 import org.junit.jupiter.api.Test;
@@ -13,16 +14,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.time.Duration;
-import java.util.List;
-import java.util.Set;
 
 public class Form {
     public WebDriver driver;
+
+
 
     @BeforeEach
     public void SetUp()
@@ -32,12 +31,24 @@ public class Form {
         driver.get("https://d18u5zoaatmpxx.cloudfront.net/");
     }
 
+
+
+
     @Test
     public void FillForm() {
 
         driver.findElement(By.cssSelector("[aria-label=forms]")).click();
-        driver.findElement(By.id("name")).sendKeys("TestName");
-        driver.findElement(By.id("email")).sendKeys("testemail@e.com");
+
+        FormClass form=new FormClass(driver);
+        form.typeName("TestName");
+        form.setEmail("t.t@t.com");
+//        form.selectSate("nsw");
+//        form.checkAgree();
+//        form.submit();
+
+       // driver.findElement(By.cssSelector("[aria-label=forms]")).click();
+//        driver.findElement(By.id("name")).sendKeys("TestName");
+//        driver.findElement(By.id("email")).sendKeys("testemail@e.com");
         driver.findElement(By.className("v-select__selections")).click();
         //driver.findElements(By.cssSelector(".v-list-item__title"));
 
@@ -66,7 +77,7 @@ public class Form {
         new WebDriverWait(driver,Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.cssSelector(".snackbar"))));
 
          System.out.println(driver.findElement(By.cssSelector(".snackbar")).getText());
-         Assert.assertEquals("Thanks for your message TestName",driver.findElement(By.cssSelector(".snackbar")).getText());
+         Assert.assertEquals("Thanks for your feedback TestName",driver.findElement(By.cssSelector(".snackbar")).getText());
     }
 
 
